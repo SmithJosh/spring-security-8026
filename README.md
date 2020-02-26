@@ -1,13 +1,13 @@
 This is a simple gateway application configured to route requests to some backend service. It has
-a single page which submits POST requests to that same service.
+a single page which submits POST requests to that same service. It also has a web filter which
+tries to read form data off of the post before it is routed by the gateway.
 
-The gateway uses Spring Security to provide CSRF protection. If CSRF protection is disabled,
-everything works properly. But when it's enabled, the form POST on the gateway page hangs until
-it times out.
+The problem is, form POSTs hang until they timeout. It seems this is caused by reading the form
+data before the request is routed by the gateway.
 
 ## To reproduce
 1. Configure the gateway to point to some service where you can verify the requests are received. 
-The default config should work if the link hasn't expired.  
+The default config should work if the link hasn't expired.
     ```yaml
     spring:
       cloud:
@@ -33,7 +33,3 @@ Both requests should work.
 ### Actual Behavior
 The AJAX POST works. 
 The form POST hangs.
-
-## Running without CSRF protection
-CSRF protection can be disabled by setting `csrf.enabled=false` in the gateway application.yml.
-Perform the above steps with CSRF disabled to verify that both POST requests work as expected.
