@@ -6,8 +6,8 @@ everything works properly. But when it's enabled, the form POST on the gateway p
 it times out.
 
 ## To reproduce
-1. Configure the gateway to point to some webapp. By default it uses `https://webhook.site`, but 
-the only thing that matters is that you can verify the requests are received.
+1. Configure the gateway to point to some service where you can verify the requests are received. 
+The default config should work if the link hasn't expired.  
     ```yaml
     spring:
       cloud:
